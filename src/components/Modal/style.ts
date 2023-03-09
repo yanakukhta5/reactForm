@@ -10,16 +10,7 @@ export const Overflow = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  ::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: ${(props) => props.theme.colors.dark};
-    opacity: 0.5;
-  }
+  background-color: ${({ theme }) => theme.colors.dark}70;
 `
 
 export const Dialog = styled.dialog`
@@ -47,7 +38,7 @@ export const Close = styled.button`
     position: absolute;
     width: 24px;
     height: 4px;
-    background: ${props => props.theme.colors.primary};
+    background: ${(props) => props.theme.colors.primary};
   }
   ::before {
     transform: rotate(45deg);

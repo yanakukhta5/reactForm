@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
-import { Button } from './components/Button'
-import { Container } from './components/Container'
-import { Modal } from './components/Modal'
-import { ContactForm } from './components/ContactForm'
+import { Modal } from '@/components/Modal'
+import { Button } from '@/components/Button'
+import { Container } from '@/components/Container'
+import { ContactForm } from '@/components/ContactForm'
 
 function App() {
   const [formOpen, setFormOpen] = useState(false)
@@ -17,9 +17,9 @@ function App() {
       <Button onClick={buttonClick} variant="primary">
         Вызвать модальное окно с кнопкой
       </Button>
-      
+
       {formOpen && (
-        <Modal setFormOpen={setFormOpen} >
+        <Modal setFormOpen={setFormOpen}>
           <ContactForm setFormOpen={setFormOpen} />
         </Modal>
       )}

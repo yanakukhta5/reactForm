@@ -1,6 +1,5 @@
-import { Dispatch, ReactNode, SetStateAction } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import { useForm, Controller } from 'react-hook-form'
-import { toast } from 'react-toastify'
 
 import { Input } from '@/components/Input'
 import { Output } from '@/components/Output'
@@ -18,7 +17,9 @@ interface ContactFormProps {
   setFormOpen: Dispatch<SetStateAction<boolean>>
 }
 
-export const ContactForm: React.FC<ContactFormProps> = function( {setFormOpen} ) {
+export const ContactForm: React.FC<ContactFormProps> = function ({
+  setFormOpen
+}) {
   const {
     register,
     formState: { errors },
@@ -30,8 +31,8 @@ export const ContactForm: React.FC<ContactFormProps> = function( {setFormOpen} )
   })
 
   async function onFormSubmit(data: IData) {
-    const ParsedData = {...data, tel: data.tel.replace(/[()\s-]/g, '')}
-    console.log(JSON.stringify(ParsedData))
+    const parsedData = { ...data, tel: data.tel.replace(/[()\s-]/g, '') }
+    console.log(JSON.stringify(parsedData))
     setFormOpen((prevState) => !prevState)
     reset({
       name: '',
@@ -60,7 +61,7 @@ export const ContactForm: React.FC<ContactFormProps> = function( {setFormOpen} )
           id="name"
           placeholder="Ваше имя"
         />
-        <Output>{errors?.name?.message as string}</Output>
+        <Output>{errors?.name?.message}</Output>
       </Label>
 
       <Label htmlFor="tel">
@@ -74,7 +75,7 @@ export const ContactForm: React.FC<ContactFormProps> = function( {setFormOpen} )
             },
             minLength: {
               value: 18,
-              message: "Введите свой телефон полностью"
+              message: 'Введите свой телефон полностью'
             }
           }}
           render={({ field }) => (
@@ -91,7 +92,7 @@ export const ContactForm: React.FC<ContactFormProps> = function( {setFormOpen} )
             </>
           )}
         />
-        <Output>{errors?.tel?.message as string}</Output>
+        <Output>{errors?.tel?.message}</Output>
       </Label>
 
       <Label htmlFor="message">
@@ -112,7 +113,7 @@ export const ContactForm: React.FC<ContactFormProps> = function( {setFormOpen} )
           id="message"
           placeholder="Ваше сообщение"
         />
-        <Output>{errors?.message?.message as string}</Output>
+        <Output>{errors?.message?.message}</Output>
       </Label>
 
       <Button variant="primary" value="Отправить" type="submit">

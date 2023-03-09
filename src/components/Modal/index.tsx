@@ -1,5 +1,6 @@
-import { Dispatch, ReactNode, SetStateAction } from 'react'
 import ReactDOM from 'react-dom'
+import { Dispatch, ReactNode, SetStateAction, useRef } from 'react'
+
 import { Overflow, Dialog, Close } from './style'
 
 interface ModalProps {
@@ -12,9 +13,16 @@ export const Modal: React.FC<ModalProps> = function ({
   setFormOpen
 }) {
   const modalRoot = document.getElementById('modal-root')
+  const dialog = useRef(null)
+
+  const clickHandler = function (event: React.MouseEvent<HTMLElement>) {
+    const dialog = (event.target as HTMLElement).closest('dialog')
+    if (!dialog) setFormOpen((prevState) => !prevState)
+  }
+
   return ReactDOM.createPortal(
-    <Overflow>
-      <Dialog>
+    <Overflow onClick={clickHandler}>
+      <Dialog ref={dialog}>
         {children}
         <Close onClick={() => setFormOpen((prevState) => !prevState)} />
       </Dialog>

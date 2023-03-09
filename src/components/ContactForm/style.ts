@@ -1,10 +1,9 @@
-import { Input } from '@/components/Input'
 import styled from '@emotion/styled'
 import InputMask from 'react-input-mask'
 
-const TextareaInput = Input.withComponent('textarea')
+import { Input } from '@/components/Input'
 
-export const Textarea = styled(TextareaInput)`
+export const Textarea = styled(Input.withComponent('textarea'))`
   padding: 10px;
   resize: none;
   min-height: 100px;
