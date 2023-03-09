@@ -1,16 +1,20 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import InputMask from 'react-input-mask'
 
 import { Input } from '@/components/Input'
 import { Output } from '@/components/Output'
 import { Label } from '@/components/Label'
 import { Button } from '@/components/Button'
-import { Textarea } from './style'
+import { Textarea, InputTel } from './style'
+
+interface IData {
+  name: string,
+  tel: string,
+  message: string
+}
 
 export function ContactForm() {
-  const [name, setName] = useState(localStorage.getItem('username') || '')
 
   const {
     register,
@@ -18,13 +22,16 @@ export function ContactForm() {
     handleSubmit,
     reset,
     control
-  } = useForm({
+  } = useForm<IData>({
     mode: 'onBlur'
   })
 
-  async function onFormSubmit() {
+  async function onFormSubmit(data: IData) {
+    console.log(data)
     reset({
-      password: ''
+      name: '',
+      tel: '',
+      message: ''
     })
   }
 
@@ -36,12 +43,11 @@ export function ContactForm() {
             required: 'Введите имя',
             minLength: {
               value: 2,
-              message:
-                'Имя пользователя не может состоять менее чем из 2 символов'
+              message: 'Имя не может состоять менее чем из 2 символов'
             }
           })}
           id="name"
-          placeholder="Имя пользователя"
+          placeholder="Ваше имя"
         />
         <Output>{errors?.name?.message as string}</Output>
       </Label>
@@ -53,18 +59,20 @@ export function ContactForm() {
           rules={{
             required: {
               value: true,
-              message: "k;jgljgljgjhg"
+              message: 'Введите телефон'
             }
           }}
-          render={({ field: { ref, ...field }, fieldState: {invalid, error} }) => (
+          render={({ field }) => (
             <>
-            <InputMask
-              mask="99/99"
-              maskChar=""
-              value={field.value}
-              onChange={field.onChange}
-            ></InputMask>
-            <p>{error}</p>
+              <InputTel
+                {...field}
+                mask="99/99"
+                onBlur={field.onBlur}
+                maskChar=""
+                value={field.value}
+                placeholder="Ваш телефон"
+                ref={field.ref}
+              ></InputTel>
             </>
           )}
         />
@@ -81,7 +89,7 @@ export function ContactForm() {
             }
           })}
           id="message"
-          placeholder="Сообщение пользователя"
+          placeholder="Ваше сообщение"
         />
         <Output>{errors?.message?.message as string}</Output>
       </Label>
