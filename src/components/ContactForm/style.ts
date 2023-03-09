@@ -9,6 +9,7 @@ export const Textarea = styled(TextareaInput)`
   resize: none;
   min-height: 100px;
   outline: none;
+  font-family: 'Roboto Medium', Arial, Helvetica, sans-serif;
 
   ::placeholder {
     font-family: 'Roboto Medium', Arial, Helvetica, sans-serif;

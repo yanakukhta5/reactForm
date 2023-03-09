@@ -25,6 +25,6 @@ export const Overflow = styled.div`
 export const Dialog = styled.dialog`
   display: block;
   border: 0;
-  min-width: 70%;
+  width: 70%;
   border-radius: 10px;
 `

@@ -9,13 +9,12 @@ import { Button } from '@/components/Button'
 import { Textarea, InputTel } from './style'
 
 interface IData {
-  name: string,
-  tel: string,
+  name: string
+  tel: string
   message: string
 }
 
 export function ContactForm() {
-
   const {
     register,
     formState: { errors },
@@ -27,7 +26,8 @@ export function ContactForm() {
   })
 
   async function onFormSubmit(data: IData) {
-    console.log(data)
+    const ParsedData = {...data, tel: data.tel.replace(/[()\s-]/g, '')}
+    console.log(JSON.stringify(ParsedData))
     reset({
       name: '',
       tel: '',
@@ -44,6 +44,12 @@ export function ContactForm() {
             minLength: {
               value: 2,
               message: 'Имя не может состоять менее чем из 2 символов'
+            },
+            validate: {
+              reqular: (value) => {
+                if (value.match(/[0-9a-zA-Z]/))
+                  return 'Имя может состоять только из русских букв (в верхнем и нижнем регистре) и дефиса (-)'
+              }
             }
           })}
           id="name"
@@ -60,13 +66,17 @@ export function ContactForm() {
             required: {
               value: true,
               message: 'Введите телефон'
+            },
+            minLength: {
+              value: 18,
+              message: "Введите свой телефон полностью"
             }
           }}
           render={({ field }) => (
             <>
               <InputTel
                 {...field}
-                mask="99/99"
+                mask="+7 (999) 999-99-99"
                 onBlur={field.onBlur}
                 maskChar=""
                 value={field.value}
@@ -86,6 +96,12 @@ export function ContactForm() {
             minLength: {
               value: 5,
               message: 'Слишком маленькое сообщение'
+            },
+            validate: {
+              reqular: (value) => {
+                if (!value.match(/^[а-яА-Я0-9_-]/))
+                  return 'Сообщение должно состоять из русских букв (в верхнем и нижнем регистре), цифр, символов подчеркивания (_) и дефиса (-)'
+              }
             }
           })}
           id="message"
