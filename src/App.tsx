@@ -19,8 +19,8 @@ function App() {
       </Button>
       
       {formOpen && (
-        <Modal>
-          <ContactForm />
+        <Modal setFormOpen={setFormOpen} >
+          <ContactForm setFormOpen={setFormOpen} />
         </Modal>
       )}
     </Container>

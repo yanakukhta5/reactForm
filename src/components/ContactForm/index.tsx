@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { Dispatch, ReactNode, SetStateAction } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
@@ -14,7 +14,11 @@ interface IData {
   message: string
 }
 
-export function ContactForm() {
+interface ContactFormProps {
+  setFormOpen: Dispatch<SetStateAction<boolean>>
+}
+
+export const ContactForm: React.FC<ContactFormProps> = function( {setFormOpen} ) {
   const {
     register,
     formState: { errors },
@@ -28,6 +32,7 @@ export function ContactForm() {
   async function onFormSubmit(data: IData) {
     const ParsedData = {...data, tel: data.tel.replace(/[()\s-]/g, '')}
     console.log(JSON.stringify(ParsedData))
+    setFormOpen((prevState) => !prevState)
     reset({
       name: '',
       tel: '',
