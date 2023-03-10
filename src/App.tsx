@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { Modal } from '@/components/Modal'
 import { Button } from '@/components/Button'
@@ -14,6 +16,7 @@ function App() {
 
   return (
     <Container>
+      <ToastContainer />
       <Button onClick={buttonClick} variant="primary">
         Вызвать модальное окно с кнопкой
       </Button>

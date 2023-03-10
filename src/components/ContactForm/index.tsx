@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
 import { useForm, Controller } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 import { Input } from '@/components/Input'
 import { Output } from '@/components/Output'
@@ -31,8 +32,13 @@ export const ContactForm: React.FC<ContactFormProps> = function ({
   })
 
   async function onFormSubmit(data: IData) {
-    const parsedData = { ...data, tel: data.tel.replace(/[()\s-]/g, '') }
-    console.log(JSON.stringify(parsedData))
+    try {
+      const parsedData = { ...data, tel: data.tel.replace(/[()\s-]/g, '') }
+      console.log(JSON.stringify(parsedData))
+      toast.success('Форма успешно отправлена')
+    } catch {
+      toast.error('Произошла ошибка при отправке формы')
+    }
     setFormOpen((prevState) => !prevState)
     reset({
       name: '',
