@@ -21,7 +21,7 @@ export const Modal: React.FC<ModalProps> = function ({
   }
 
   return ReactDOM.createPortal(
-    <Overflow onClick={clickHandler}>
+    <Overflow onMouseDown={clickHandler}>
       <Dialog ref={dialog}>
         {children}
         <Close onClick={() => setFormOpen((prevState) => !prevState)} />
